@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id         Int         @id @default(autoincrement())
+  name       String
+  email      String      @unique
+  password   String
+  status     String      @default("Verifying")
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @default(now()) @updatedAt
+
+  Profile    Profile?
+  University University?
+  Regist     Regist?
+}
+
+model Profile {
+  id                Int      @id @default(autoincrement())
+  userId            Int      @unique
+  nik               String   @unique
+  telp_user         String?
+  photo             String?
+  place_birth       String?
+  date_birth        String?
+  gender            String?
+  religion          String?
+  address           String?
+  address_ktp       String?
+  city_ktp          String?
+  province_ktp      String?
+  address_domicile  String?
+  city_domicile     String?
+  province_domicile String?
+  strata            String?
+  ipk               String?
+  semester          String?
+  name_supervisor   String?
+  telp_supervisor   String?
+  email_supervisor  String?
+
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model University {
+  id        Int     @id @default(autoincrement())
+  userId    Int     @unique
+  nim       String?
+  univ_name String?
+  major     String?
+
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Regist {
+  id               Int      @id @default(autoincrement())
+  userId           Int      @unique
+  available_space  Boolean  @default(true)
+  recommend_letter String?
+  cv               String?
+  portofolio       String?
+  score_list       String?
+  first_period     String?
+  last_period      String?
+  updateAt         DateTime @default(now()) @updatedAt
+
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Admin {
+  id         Int      @id @default(autoincrement())
+  admin_name String
+  nip        String   @unique
+  telp_admin String
+  email      String   @unique
+  password   String
+  createdAt  DateTime @default(now())
+}
+
+model Banner {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  filename  String
+  updatedAt DateTime @default(now()) @updatedAt
+}

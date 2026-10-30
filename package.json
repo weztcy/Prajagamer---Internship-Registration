@@ -1,0 +1,21 @@
+{
+  "name": "prajagamer-internship-registration",
+  "version": "1.0.0",
+  "description": "Website Pendaftaran Magang Disdukcapil Kota Semarang (Prajagamer)",
+  "private": true,
+  "scripts": {
+    "dev": "node runner.js",
+    "start": "node runner.js",
+    "seed": "npm run seed --prefix backend",
+    "dev:concurrently": "concurrently -n \"BACKEND,FRONTEND\" -c \"cyan,magenta\" \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "install:all": "npm run install:backend && npm run install:frontend",
+    "install:backend": "npm install --prefix backend",
+    "install:frontend": "npm install --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
